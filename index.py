@@ -15,9 +15,28 @@ from xlwt import *
 # table.write(0, 3, '10-Dec-2021')
 # table.write(0, 4, '09-Dec-2021')
 urlsList = [
-    # 'https://www.mcxindia.in/'
-    'https://www.moneycontrol.com/commodity/'
+    'https://www.moneycontrol.com/commodity/',
+    'https://www.mcxindia.in/'
 ]
+
+def urlFunction(url):
+    driver = webdriver.Chrome(r'C:\Users\Nagababu\Downloads\chromedriver_win32\chromedriver.exe')
+    driver.get(url)
+
+    # this is just to ensure that the page is loaded
+    time.sleep(5)
+
+    html = driver.page_source
+    print(driver.get(url))
+    soup = BeautifulSoup(html, "html.parser")
+    driver.close()
+    all_divs = soup.find('td',{
+            'class': "commonopen"
+        })
+    print(soup)
+    return  all_divs.text
+
+
 
 
 def specificUrl(index):
@@ -29,26 +48,61 @@ def specificUrl(index):
     time.sleep(5)
 
     html = driver.page_source
-
+    namesList = ['gold', 'silver', 'cotton', 'crudeoil', 'naturalgas', 'aluminium', 'copper', 'nickel', 'lead', 'zinc', 'menthaoil']
     soup = BeautifulSoup(html, "html.parser")
     driver.close()
-    if(index==1): 
+    if(index==0): 
+        all_divs = soup.find('div',{
+            'class': "scrollBar scrolacMark jspScrollable"
+        }).find_all('a')
+        all_prices = soup.find('div',{
+            'class': "scrollBar scrolacMark jspScrollable"
+        }).find_all('tr')
+        prices = []
+        for my in all_prices:
+            k = 0
+            for y in my:
+                if(k==3):
+                    prices.append(y.text)
+                k +=1
+
+        anchorUrls = []
+        names = []
+        newlist = []
+        for k in all_divs:
+            names.append(k.text)
+        for l in names:
+            v = len(l)
+            low = l[0:v-11]
+            newlist.append(low.lower().strip())        
+        
+        return (prices)
+
+
+    elif(index==1):
         # all_divs = soup.find_all('table',{
         #     'class': "home-table"
         # })
         # prices  = soup.find_all('span',{
         #     'class': "indexprice"
-        # })   
-
+        # })  
+        
         all_anchors = soup.find('div',{
             'class': "grid col-940 centertext"
         }).find_all('a')
         anchorUrls = []
-        for i in all_anchors:
-            anchorUrls.append(i['href'])
-        print(anchorUrls)    
+        # for i in all_anchors:
+        #     anchorUrls.append(i['href'])
+
+        # url = 'https://www.mcxindia.in/mcx/mcx-gold'
+        print(namesList)
+        for ym in namesList:
+            url = 'https://www.mcxindia.in/mcx/mcx-' + ym
+            fun = urlFunction(url)
+            print(fun)
         names = []
         priceslist = []
+
         # for i in all_divs:
         #     line = i.tbody.tr.td.h2.text
         #     prefix = "MCX"
@@ -58,12 +112,7 @@ def specificUrl(index):
         #     priceslist.append(l.text.strip())
 
         return (names,priceslist)
-    elif(index==0):
-        all_divs = soup.find('div',{
-            'class': "jspPane"
-        }).find_all('a')
-        print(all_divs)
-        return None
+
 
 
 
