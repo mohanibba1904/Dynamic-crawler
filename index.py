@@ -27,16 +27,7 @@ table.write(0, 4, 'economictimes')
 table.write(0, 5, 'markets-businessinside')
 table.write(0, 6, 'tradingeconomics')
 
-
-
-
-
-# urlsList = [
-#     'https://in.investing.com/commodities/',
-#     'https://www.mcxindia.in/mcx/mcx-'
-# ]
 # searchProducts =  ['silver mini','gold', 'platinum','nickel',  'silver micro', 'nickel mini', 'aluminium', 'lead',  'copper mini']
-
 
 def urlFunction(url,index):
     headers = {
@@ -115,18 +106,6 @@ def urlFunction(url,index):
 
 
 def specificUrl(index):
-
-    # investingPrice = []
-    # for ym in searchProducts:
-    #         Urls = urlsList[index] + ym.replace(' ','-')
-    #         fun = urlFunction(Urls,index)
-    #         if(fun==None):
-    #             investingPrice.append('Not Found')
-    #         else:
-    #             investingPrice.append(fun)
-
-    # return investingPrice
-
     if(index==0):
         investingPrice = []
         for ym in searchProducts:
@@ -135,13 +114,10 @@ def specificUrl(index):
             if(fun==None):
                 investingPrice.append('Not Found')
             else:
-                investingPrice.append(fun)
-            
-        
+                investingPrice.append(fun)    
         return investingPrice
 
-    elif(index==1):
-        
+    elif(index==1):       
         priceslist = []
         for ym in searchProducts:
             Urls = urlsList[index] + ym.replace(' ','-')
@@ -149,12 +125,10 @@ def specificUrl(index):
             if(fun==None):
                 priceslist.append('Not Found')
             else:
-                priceslist.append(fun.strip())
-    
+                priceslist.append(fun.strip())    
         return priceslist
 
-    elif(index==2):
-        
+    elif(index==2):        
         priceslist = []
         for ym in searchProducts:
             val = ym.upper()
@@ -164,12 +138,10 @@ def specificUrl(index):
             if(fun==None):
                 priceslist.append('Not Found')
             else:
-                priceslist.append(fun.strip())
-    
+                priceslist.append(fun.strip())   
         return priceslist
 
-    elif(index==3):
-        
+    elif(index==3):        
         priceslist = []
         for ym in searchProducts:
             Urls = urlsList[index] + ym.replace(' ','-') + '-price'
@@ -178,12 +150,10 @@ def specificUrl(index):
             if(fun==None):
                 priceslist.append('Not Found')
             else:
-                priceslist.append(fun.strip())
-    
+                priceslist.append(fun.strip())    
         return priceslist
 
-    elif(index==4):
-        
+    elif(index==4):        
         priceslist = []
         for ym in searchProducts:
             Urls = urlsList[index] + ym.replace(' ','-')
@@ -192,16 +162,8 @@ def specificUrl(index):
             if(fun==None):
                 priceslist.append('Not Found')
             else:
-                priceslist.append(fun.strip())
-    
+                priceslist.append(fun.strip())    
         return priceslist    
-
-
-# result = ['silver mini','gold', 'platinum','nickel',  'silver micro', 'nickel mini', 'aluminium', 'lead','copper mini']
-
-
-# [[['gold', 'silver', 'cotton', 'crudeoil', 'naturalgas', 'aluminium', 'copper', 'nickel', 'lead', 'zinc', 'menthaoil'], ['47,955.00', '62,553.00', '33,130.00', '5,688.00', '295.40', '223.50', '759.00', '1,546.50', '190.35', '283.05', '992.10']],
-#  [['Gold', 'Gold Mini', 'Silver', 'Silver Mini', 'Silver Micro', 'Crude Oil', 'Crude Oil Mini', 'Natural Gas', 'Copper', 'Copper Mini', 'Aluminium', 'Aluminium Mini', 'Lead', 'Lead Mini', 'Nickel', 'Nickel Mini', 'Zinc', 'Zinc Mini', 'Mentha Oil'], ['47991', '47816', '62370', '62657', '62370', '5676', '0', '309.5', '762.9', '0', '221.15', '212.4', '190.35', '189.25', '1535.5', '0', '281.85', '281.7', '281.85', '281.85']]]
 
 row = 1
 finalresult = []
@@ -224,6 +186,3 @@ for my in range(len(searchProducts)):
  
         row+=1 
 workbook.save('MulipleUrlsScrapying.xls')  
-
-
-
